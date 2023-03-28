@@ -97,3 +97,16 @@ for i in matrix_stuff(matrix_A, matrix_B):  # we are calling the function, so we
 
 print(first_terms_list)
 """
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+# looking at the __main__function as well as importing functions from other code
+from functions import pizza, pie  # created a functions.py and wrote a def statement called pizza and pie
+
+if __name__ == "__main__":  # not really sure what this is for but its here bc convention
+    # for pizza
+    meat = input('meat choice:')  # we are entering words not number so eval is not necessary
+    cheese = input('kind of cheese:')
+    print(pizza(meat, cheese))
+    # for pie, but we didnt define the arguments like in pizza, defined it in the print statement
+    print(pie(input('pie filling:')))
+"""
