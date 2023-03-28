@@ -70,7 +70,8 @@ class spacestation:
 
 def bind_mouse(station, vector1, vector2):
     global pause
-    if pause: return
+    if pause:
+        return
     s = station.canvas
 
     def down():
@@ -90,8 +91,10 @@ def bind_mouse(station, vector1, vector2):
 
         def move():
             global drag, pause
-            if pause: return
-            if drag: set_v()
+            if pause:
+                return
+            if drag:
+                set_v()
 
         def up():
             global drag, gotv, v, pause
@@ -160,7 +163,8 @@ while True:
     instruct1.visible = instruct2.visible = True
     while True:
         rate(50)
-        if gotv: break
+        if gotv:
+            break
     v1.visible = v2.visible = False
     instruct1.visible = instruct2.visible = False
     r = vector(station1.ball.pos)  # initialize r without making it equivalent to ball.pos
@@ -189,6 +193,7 @@ while True:
     pause = True
     while True:
         rate(50)
-        if not pause: break
+        if not pause:
+            break
     gotv = False
     click1.visible = click2.visible = False
