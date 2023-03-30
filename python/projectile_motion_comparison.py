@@ -11,15 +11,15 @@ scene_moon = vp.box(pos=vp.vector(-10, -10, 0), size=vp.vector(10, 10, 0.5), col
 
 # earth sphere
 initial_pos_earth = vp.vector(5, 5, 0.5)
-initial_vel_earth = vp.vector(10, 10, 2)
+initial_vel_earth = vp.vector(1, 1, 10)
 ball_earth = vp.sphere(pos=initial_pos_earth, radius=0.5, color=vp.color.blue, make_trail=True)
 # mars sphere
 initial_pos_mars = vp.vector(-5, -5, 0.5)
-initial_vel_mars = vp.vector(10, 10, 2)
+initial_vel_mars = vp.vector(1, 1, 10)
 ball_mars = vp.sphere(pos=initial_pos_mars, radius=0.5, color=vp.color.magenta, make_trail=True)
 # moon sphere
 initial_pos_moon = vp.vector(-15, -15, 0.5)
-initial_vel_moon = vp.vector(10, 10, 2)
+initial_vel_moon = vp.vector(1, 1, 10)
 ball_moon = vp.sphere(pos=initial_pos_moon, radius=0.5, color=vp.color.white, make_trail=True)
 
 # for animation
