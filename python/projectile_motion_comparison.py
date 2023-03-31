@@ -45,7 +45,6 @@ while ball_earth.pos.z >= box_thickness + sphere_radius:
     ball_earth.pos.z += ball_vel_earth * time_step
 
     time += time_step
-    print(time)
 
 time = 0
 # mars loop
