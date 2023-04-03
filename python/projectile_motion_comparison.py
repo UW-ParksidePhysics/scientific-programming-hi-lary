@@ -1,5 +1,12 @@
 import vpython as vp
+
 # text
+Earth = vp.text(text="EARTH", pos=vp.vector(10, 5, -2), align='center', height=1, color=vp.color.green,
+                axis=vp.vector(1, 0, 0), up=vp.vector(0, 0, 1))
+Mars = vp.text(text="MARS", pos=vp.vector(0, -5, -2), align='center', height=1, color=vp.color.red,
+               axis=vp.vector(1, 0, 0), up=vp.vector(0, 0, 1))
+Moon = vp.text(text="MOON", pos=vp.vector(-10, -15, -2), align='center', height=1, color=vp.color.gray(0.5),
+               axis=vp.vector(1, 0, 0), up=vp.vector(0, 0, 1))
 
 # constants and scenes
 earth_gravity = -9.81  # m/s/s
@@ -12,6 +19,15 @@ scene_moon = vp.box(pos=vp.vector(-10, -10, 0), size=vp.vector(10, 10, 0.5), col
 box_thickness = 0.5
 sphere_radius = 0.5
 # earth sphere
+initial_pos_earth = vp.vector(5, 5, box_thickness + sphere_radius)
+initial_vel_earth = vp.vector(1, 1, 10)
+ball_earth = vp.sphere(pos=initial_pos_earth, radius=sphere_radius, color=vp.color.blue, make_trail=True)
+# mars sphere
+initial_pos_mars = vp.vector(-5, -5, box_thickness + sphere_radius)
+initial_vel_mars = vp.vector(1, 1, 10)
+ball_mars = vp.sphere(pos=initial_pos_mars, radius=sphere_radius, color=vp.color.magenta, make_trail=True)
+# moon sphere
+initial_pos_moon = vp.vector(-15, -15, box_thickness + sphere_radius)
 initial_pos_earth = vp.vector(5, 5, box_thickness+sphere_radius)
 initial_vel_earth = vp.vector(1, 1, 10)
 ball_earth = vp.sphere(pos=initial_pos_earth, radius=sphere_radius, color=vp.color.blue, make_trail=True)
