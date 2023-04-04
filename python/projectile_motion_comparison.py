@@ -28,6 +28,15 @@ initial_vel_mars = vp.vector(1, 1, 10)
 ball_mars = vp.sphere(pos=initial_pos_mars, radius=sphere_radius, color=vp.color.magenta, make_trail=True)
 # moon sphere
 initial_pos_moon = vp.vector(-15, -15, box_thickness + sphere_radius)
+initial_pos_earth = vp.vector(5, 5, box_thickness+sphere_radius)
+initial_vel_earth = vp.vector(1, 1, 10)
+ball_earth = vp.sphere(pos=initial_pos_earth, radius=sphere_radius, color=vp.color.blue, make_trail=True)
+# mars sphere
+initial_pos_mars = vp.vector(-5, -5, box_thickness+sphere_radius)
+initial_vel_mars = vp.vector(1, 1, 10)
+ball_mars = vp.sphere(pos=initial_pos_mars, radius=sphere_radius, color=vp.color.magenta, make_trail=True)
+# moon sphere
+initial_pos_moon = vp.vector(-15, -15, box_thickness+sphere_radius)
 initial_vel_moon = vp.vector(1, 1, 10)
 ball_moon = vp.sphere(pos=initial_pos_moon, radius=sphere_radius, color=vp.color.white, make_trail=True)
 
