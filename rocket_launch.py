@@ -10,7 +10,6 @@ mass v time (data allowing)
 """
 
 # some constants (will eventually be moved to a text file)
-
 # Saturn V
 mass_saturn = 2800000  # kg
 thrust_saturn = 34500000  # N
@@ -61,8 +60,20 @@ def saturn_rocket_simulation(collective_mass):
    # return position_array, velocity_array, acceleration_array
 
 
-print(saturn_rocket_simulation(total_mass())[0])
+# print(saturn_rocket_simulation(total_mass())[0])
+#print(saturn_rocket_simulation(total_mass())[1])
+# print(saturn_rocket_simulation(total_mass())[2])
 
 
-#plt.plot(time_range, saturn_rocket_simulation(total_mass())[0])
-#plt.show()
+""""# position plot
+plt.plot(time_range, saturn_rocket_simulation(total_mass())[0])
+plt.show()
+
+# velocity plot
+plt.plot(time_range, saturn_rocket_simulation(total_mass())[1])
+plt.show()
+
+# acceleration plot
+plt.plot(time_range, saturn_rocket_simulation(total_mass())[2])
+plt.show()"""
+
