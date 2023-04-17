@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from numpy import array
 
 """
 This will contain the equations needed for my three plots:
@@ -26,12 +27,15 @@ time_range = np.arange(0, 601, 0.1)
 def total_mass():
     rocket_mass_array = [mass_saturn, mass_falcon, mass_block]
     payload = 8300  # kg, the largest payload possible that can be used by all three rockets
-    collective_mass = payload + rocket_mass_array[0]
-    return collective_mass
+    collective_mass_array = []
+    for i in rocket_mass_array:
+        collective_mass = payload + i
+        collective_mass_array.append(collective_mass)
+    return collective_mass_array
 
 
-def saturn_rocket_simulation(collective_mass):
-    thrust_array = [thrust_saturn, thrust_falcon, thrust_block]
+def saturn_rocket_simulation(collective_mass_array):
+    thrust_array = array([thrust_saturn, thrust_falcon, thrust_block])
     time = 0
     dm = 0.1  # change in mass
     gravity = 9.81  # m/s/s
@@ -39,28 +43,23 @@ def saturn_rocket_simulation(collective_mass):
     position_array = []
     velocity_array = []
     acceleration_array = []
+   # change lists to arrays and get rid of indices
     for t in time_range:
-        position = initial_velocity * (time+t) + (1 / 2) * \
-                   ((thrust_array[0] - gravity) / (collective_mass - dm)) * (time+t) ** 2
-        velocity = (thrust_array[0] - gravity) / (collective_mass - dm) * (time+t)
-        acceleration = (thrust_array[0] - (collective_mass - dm) * gravity) / (collective_mass - dm)
+        position = initial_velocity * (time + t) + (1 / 2) * \
+                   ((thrust_array - gravity) / (array(collective_mass_array) - dm)) * (time + t) ** 2
+        velocity = (thrust_array - gravity) / (array(collective_mass_array) - dm) * (time + t)
+        acceleration = (thrust_array - (array(collective_mass_array) - dm) * gravity) / (array(collective_mass_array) - dm)
         position_array.append(position)
         velocity_array.append(velocity)
         acceleration_array.append(acceleration)
-        collective_mass = collective_mass - dm
+        for mass in collective_mass_array:
+            new_mass = collective_mass_array.pop(mass) - dm
+            collective_mass_array.append(new_mass)
     return position_array, velocity_array, acceleration_array
-   # position = initial_velocity * time + (1 / 2) * ((thrust_array[i] - gravity) / (collective_mass - dm)) * time ** 2
-   # velocity = (thrust_array[i] - gravity) / (collective_mass - dm) * time
-   # acceleration = (thrust_array[i] - (collective_mass - dm) * gravity) / (collective_mass - dm)
-    #position_array.append(position)
-    #velocity_array.append(velocity)
-    #acceleration_array.append(acceleration)
-    #time = time + dt
-   # collective_mass = collective_mass - dm
-   # return position_array, velocity_array, acceleration_array
 
 
-# print(saturn_rocket_simulation(total_mass())[0])
+#print(total_mass())
+print(saturn_rocket_simulation(total_mass()))
 # print(saturn_rocket_simulation(total_mass())[1])
 # print(saturn_rocket_simulation(total_mass())[2])
 
