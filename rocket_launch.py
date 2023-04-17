@@ -65,7 +65,7 @@ def saturn_rocket_simulation(collective_mass):
 # print(saturn_rocket_simulation(total_mass())[2])
 
 
-""""# position plot
+# position plot
 plt.plot(time_range, saturn_rocket_simulation(total_mass())[0])
 plt.show()
 
@@ -75,5 +75,5 @@ plt.show()
 
 # acceleration plot
 plt.plot(time_range, saturn_rocket_simulation(total_mass())[2])
-plt.show()"""
+plt.show()
 
