@@ -33,7 +33,7 @@ def rocket_simulation(collective_mass_array):
     thrust_array = np.array([thrust_saturn, thrust_falcon, thrust_block])
     # other constants
     time = 0
-    dm = 8300 / 600  # change in mass i.e. payload / time range
+    dm = 20000 / 600  # change in mass i.e. payload / time range
     gravity = 9.81  # m/s/s
     initial_velocity = 0
     # lists to be plotted
@@ -54,27 +54,28 @@ def rocket_simulation(collective_mass_array):
     return [[position_list, velocity_list], [acceleration_list, mass_list]]
 
 
-#def plots():
-output_list = rocket_simulation(total_mass())
-figure, axes = plt.subplots(nrows=2, ncols=2, layout='constrained')
-#axes[0, 0].xlabel('Time (seconds)')
-for row_index, row in enumerate(output_list):
-    for column_index, column in enumerate(row):
-        axes[row_index][column_index].plot(time_range, column)
-        axes[row_index][column_index].set_xlabel('Time (seconds)')
-        axes[0][0].set_ylabel('Position (meters)')
-        axes[0][0].set_title('Position v Time')
-        axes[0][1].set_ylabel('Velocity (m/s)')
-        axes[0][1].set_title('Velocity v Time')
-        axes[1][0].set_ylabel('Acceleration (m/s/s)')
-        axes[1][0].set_title('Acceleration v Time')
-        axes[1][1].set_ylabel('Mass (kg)')
-        axes[1][1].set_title('Mass v Time')
-        axes[0][0].legend('Saturn V', 'Falcon 9', 'SLS Block 1')
+def plots():
+    output_list = rocket_simulation(total_mass())
+    figure, axes = plt.subplots(nrows=2, ncols=2, layout='constrained')
+    for row_index, row in enumerate(output_list):
+        for column_index, column in enumerate(row):
+            axes[row_index][column_index].plot(time_range, column)
+            axes[row_index][column_index].set_xlabel('Time (seconds)')
+            axes[0][0].set_ylabel('Position (meters)')
+            axes[0][0].set_title('Position v Time')
+            axes[0][1].set_ylabel('Velocity (m/s)')
+            axes[0][1].set_title('Velocity v Time')
+            axes[1][0].set_ylabel('Acceleration (m/s/s)')
+            axes[1][0].set_title('Acceleration v Time')
+            axes[1][1].set_ylabel('Mass (kg)')
+            axes[1][1].set_title('Mass v Time')
+    return
 
-   # return something idk
 
+plots()
 plt.show()
+
+# axes.legend('Saturn V', 'Falcon 9', 'SLS Block 1')
 exit()
 
 """
