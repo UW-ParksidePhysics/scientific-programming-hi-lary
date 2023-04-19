@@ -29,7 +29,7 @@ def rocket_simulation(collective_mass_array):
     # thrust constants to build thrust array
     thrust_saturn = 34500000  # N
     thrust_falcon = 7607000  # N
-    thrust_block = 3991613  # N  !!! fact check this !!!
+    thrust_block = 30991613  # N
     thrust_array = np.array([thrust_saturn, thrust_falcon, thrust_block])
     # other constants
     time = 0
