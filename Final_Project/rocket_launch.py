@@ -73,9 +73,8 @@ def plots():
 
 
 plots()
+plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
 plt.show()
-
-# axes.legend('Saturn V', 'Falcon 9', 'SLS Block 1')
 exit()
 
 """
