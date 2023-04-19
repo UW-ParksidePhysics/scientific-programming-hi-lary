@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 """
-This will contain the equations needed for my three plots:
+This code contains information on the rockets Saturn V, Falcon 9, and SLS Block 1.
+The goal is to produce the following plots:
 position v time
 velocity v time
 acceleration v time
@@ -49,17 +50,29 @@ def rocket_simulation(collective_mass_array):
         velocity_list.append(velocity)
         acceleration_list.append(acceleration)
         mass_list.append(collective_mass_array)
-        collective_mass_array = collective_mass_array - dm
+        collective_mass_array = collective_mass_array - dm  # update change in mass
     return [[position_list, velocity_list], [acceleration_list, mass_list]]
 
 
-def plots():
-    output_list = rocket_simulation(total_mass())
-    figure, axes = plt.subplots(nrows=2, ncols=2)
-    for row_index, row in enumerate(output_list):
-        for column_index, column in enumerate(row):
-            axes[row_index][column_index].plot(time_range, column)
-    return something idk
+#def plots():
+output_list = rocket_simulation(total_mass())
+figure, axes = plt.subplots(nrows=2, ncols=2, layout='constrained')
+#axes[0, 0].xlabel('Time (seconds)')
+for row_index, row in enumerate(output_list):
+    for column_index, column in enumerate(row):
+        axes[row_index][column_index].plot(time_range, column)
+        axes[row_index][column_index].set_xlabel('Time (seconds)')
+        axes[0][0].set_ylabel('Position (meters)')
+        axes[0][0].set_title('Position v Time')
+        axes[0][1].set_ylabel('Velocity (m/s)')
+        axes[0][1].set_title('Velocity v Time')
+        axes[1][0].set_ylabel('Acceleration (m/s/s)')
+        axes[1][0].set_title('Acceleration v Time')
+        axes[1][1].set_ylabel('Mass (kg)')
+        axes[1][1].set_title('Mass v Time')
+        axes[0][0].legend('Saturn V', 'Falcon 9', 'SLS Block 1')
+
+   # return something idk
 
 plt.show()
 exit()
