@@ -32,13 +32,14 @@ def rocket_simulation(collective_mass_array):
     thrust_array = np.array([thrust_saturn, thrust_falcon, thrust_block])
     # other constants
     time = 0
-    dm = 0.1  # change in mass
+    dm = 8300 / 600   # change in mass
     gravity = 9.81  # m/s/s
     initial_velocity = 0
     # lists to be plotted
     position_list = []
     velocity_list = []
     acceleration_list = []
+    mass_list = []
     for t in time_range:
         position = initial_velocity * (time + t) + (1 / 2) * \
                    (thrust_array - gravity) / (collective_mass_array - dm) * (time + t) ** 2
@@ -48,21 +49,32 @@ def rocket_simulation(collective_mass_array):
         velocity_list.append(velocity)
         acceleration_list.append(acceleration)
         collective_mass_array = collective_mass_array - dm
+        print(collective_mass_array, dm)
+        mass_list.append(collective_mass_array)
        # for mass in collective_mass_array:
            # collective_mass_array.pop(mass)
            # new_mass = mass - dm
             #collective_mass_array.append(new_mass)
-    return position_list, velocity_list, acceleration_list
+    return [[position_list, velocity_list], [acceleration_list, mass_list]]
 
 
 # print(total_mass())
 # print(rocket_simulation(total_mass())[0])
 # print(saturn_rocket_simulation(total_mass())[1])
 # print(saturn_rocket_simulation(total_mass())[2])
-
+output_list = rocket_simulation(total_mass())
+figure, axes = plt.subplots(nrows=2, ncols=2)
+for row_index, row in enumerate(output_list):
+    for column_index, column in enumerate(row):
+        axes[row_index][column_index].plot(time_range, column)
+plt.show()
+exit()
+# mass v time
+plt.plot(time_range, masses)
+plt.show()
 
 # position plot
-plt.plot(time_range, rocket_simulation(total_mass())[0])
+plt.plot(time_range, positions)
 plt.title('Position v Time')
 plt.xlabel('Time (seconds)')
 plt.ylabel('Position (meters)')
@@ -70,7 +82,7 @@ plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
 plt.show()
 
 # velocity plot
-plt.plot(time_range, rocket_simulation(total_mass())[1])
+plt.plot(time_range, velocities)
 plt.title('Velocity v Time')
 plt.xlabel('Time (seconds)')
 plt.ylabel('Velocity (meters/second)')
@@ -78,7 +90,7 @@ plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
 plt.show()
 
 # acceleration plot
-plt.plot(time_range, rocket_simulation(total_mass())[2])
+plt.plot(time_range, accelerations)
 plt.title('Acceleration v Time')
 plt.xlabel('Time (seconds)')
 plt.ylabel('Acceleration (meters/second/second)')
