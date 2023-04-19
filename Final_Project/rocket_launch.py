@@ -6,10 +6,10 @@ This will contain the equations needed for my three plots:
 position v time
 velocity v time
 acceleration v time
-mass v time (data allowing)
+mass v time
 """
 
-time_range = np.arange(0, 601, 0.1)
+time_range = np.arange(0, 601, 0.1)  # 600 seconds = 10 minutes (enough time to get to orbit)
 
 
 def total_mass():
@@ -32,7 +32,7 @@ def rocket_simulation(collective_mass_array):
     thrust_array = np.array([thrust_saturn, thrust_falcon, thrust_block])
     # other constants
     time = 0
-    dm = 8300 / 600   # change in mass
+    dm = 8300 / 600  # change in mass i.e. payload / time range
     gravity = 9.81  # m/s/s
     initial_velocity = 0
     # lists to be plotted
@@ -48,31 +48,23 @@ def rocket_simulation(collective_mass_array):
         position_list.append(position)
         velocity_list.append(velocity)
         acceleration_list.append(acceleration)
-        collective_mass_array = collective_mass_array - dm
-        print(collective_mass_array, dm)
         mass_list.append(collective_mass_array)
-       # for mass in collective_mass_array:
-           # collective_mass_array.pop(mass)
-           # new_mass = mass - dm
-            #collective_mass_array.append(new_mass)
+        collective_mass_array = collective_mass_array - dm
     return [[position_list, velocity_list], [acceleration_list, mass_list]]
 
 
-# print(total_mass())
-# print(rocket_simulation(total_mass())[0])
-# print(saturn_rocket_simulation(total_mass())[1])
-# print(saturn_rocket_simulation(total_mass())[2])
-output_list = rocket_simulation(total_mass())
-figure, axes = plt.subplots(nrows=2, ncols=2)
-for row_index, row in enumerate(output_list):
-    for column_index, column in enumerate(row):
-        axes[row_index][column_index].plot(time_range, column)
+def plots():
+    output_list = rocket_simulation(total_mass())
+    figure, axes = plt.subplots(nrows=2, ncols=2)
+    for row_index, row in enumerate(output_list):
+        for column_index, column in enumerate(row):
+            axes[row_index][column_index].plot(time_range, column)
+    return something idk
+
 plt.show()
 exit()
-# mass v time
-plt.plot(time_range, masses)
-plt.show()
 
+"""
 # position plot
 plt.plot(time_range, positions)
 plt.title('Position v Time')
@@ -97,3 +89,7 @@ plt.ylabel('Acceleration (meters/second/second)')
 plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
 plt.show()
 
+# mass v time
+plt.plot(time_range, masses)
+plt.show()
+"""
