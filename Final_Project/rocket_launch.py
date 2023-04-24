@@ -20,9 +20,9 @@ def total_mass():
     mass_block = 26082156  # kg
     # build a mass array
     rocket_mass_array = np.array([mass_saturn, mass_falcon, mass_block])
-    payload = 8300  # kg, the largest payload possible that can be used by all three rockets
+    payload = 20000  # kg, the largest payload possible that can be launched by all three rockets
     collective_mass_array = rocket_mass_array + payload
-    return collective_mass_array
+    return collective_mass_array  # returns a numpy array
 
 
 def rocket_simulation(collective_mass_array):
@@ -42,6 +42,7 @@ def rocket_simulation(collective_mass_array):
     acceleration_list = []
     mass_list = []
     for t in time_range:
+        # looping over equations of position, velocity, acceleration, and mass to generate data points to plot later
         position = initial_velocity * (time + t) + (1 / 2) * \
                    (thrust_array - gravity) / (collective_mass_array - dm) * (time + t) ** 2
         velocity = (thrust_array - gravity) / (collective_mass_array - dm) * (time + t)
@@ -51,11 +52,14 @@ def rocket_simulation(collective_mass_array):
         acceleration_list.append(acceleration)
         mass_list.append(collective_mass_array)
         collective_mass_array = collective_mass_array - dm  # update change in mass
+    # adding brackets to return an array instead of lists
     return [[position_list, velocity_list], [acceleration_list, mass_list]]
 
 
+# plots 4 graphs: position v time; velocity v time; acceleration v time; mass v time
 def plots():
     output_list = rocket_simulation(total_mass())
+    # will plot the graphs on a single plane instead of 4 separate graphs
     figure, axes = plt.subplots(nrows=2, ncols=2, layout='constrained')
     for row_index, row in enumerate(output_list):
         for column_index, column in enumerate(row):
@@ -73,36 +77,9 @@ def plots():
 
 
 plots()
+# generate a legend
 plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
+# show graph
 plt.show()
+# all done :)
 exit()
-
-"""
-# position plot
-plt.plot(time_range, positions)
-plt.title('Position v Time')
-plt.xlabel('Time (seconds)')
-plt.ylabel('Position (meters)')
-plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
-plt.show()
-
-# velocity plot
-plt.plot(time_range, velocities)
-plt.title('Velocity v Time')
-plt.xlabel('Time (seconds)')
-plt.ylabel('Velocity (meters/second)')
-plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
-plt.show()
-
-# acceleration plot
-plt.plot(time_range, accelerations)
-plt.title('Acceleration v Time')
-plt.xlabel('Time (seconds)')
-plt.ylabel('Acceleration (meters/second/second)')
-plt.legend(['Saturn V', 'Falcon 9', 'SLS Block 1'])
-plt.show()
-
-# mass v time
-plt.plot(time_range, masses)
-plt.show()
-"""
