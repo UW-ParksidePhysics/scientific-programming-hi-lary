@@ -3,7 +3,12 @@ import numpy as np
 
 
 def two_column_text_read(file_name):
-    data = open(file_name, 'r')
+    try:
+        data = open(file_name, 'r')
+    except OSError:
+        print(OSError)
+        return
+
     data_contents = data.readlines()
     data.close()
     data_list_one = []
@@ -18,5 +23,5 @@ def two_column_text_read(file_name):
     return data_array
 
 
-# print(two_column_text_read('practice_data'))
+print(two_column_text_read('chicken'))
 
