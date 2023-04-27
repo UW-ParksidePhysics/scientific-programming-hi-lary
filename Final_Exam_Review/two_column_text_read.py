@@ -23,5 +23,6 @@ def two_column_text_read(file_name):
     return data_array
 
 
-print(two_column_text_read('chicken'))
+# print(type(two_column_text_read('practice_data')[0][0]))
+print(two_column_text_read('practice_data')[1, :])
 

@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import stats
+from two_column_text_read import two_column_text_read
 
 
 def bivariate_statistics(data_array):  # data_array is from two_column_text_read
@@ -14,4 +15,4 @@ def bivariate_statistics(data_array):  # data_array is from two_column_text_read
     return statistics
 
 
-print(bivariate_statistics('practice_data'))
+print(bivariate_statistics(two_column_text_read('practice_data')))
