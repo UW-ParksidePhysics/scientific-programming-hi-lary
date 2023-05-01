@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def two_column_text_read(file_name):
+def read_two_column_text(file_name):
     try:
         data = open(file_name, 'r')
     except OSError:
@@ -23,6 +23,8 @@ def two_column_text_read(file_name):
     return data_array
 
 
-# print(type(two_column_text_read('practice_data')[0][0]))
-print(two_column_text_read('practice_data')[1, :])
+if __name__ == "__main__":
+    file = 'volume_energies'
+    data = read_two_column_text(file)
+print(f'data={data}, shape={data.shape}')
 

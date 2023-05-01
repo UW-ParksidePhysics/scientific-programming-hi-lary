@@ -1,7 +1,7 @@
 import numpy as np
 from calculate_quadratic_fit import calculate_quadratic_fit
 from bivariate_statistics import bivariate_statistics
-from two_column_text_read import two_column_text_read
+from read_two_column_text import two_column_text_read
 
 
 def fit_curve_array(quadratic_coefficients, statistics, number_of_points=100):
@@ -16,5 +16,5 @@ def fit_curve_array(quadratic_coefficients, statistics, number_of_points=100):
     return fit_curve
 
 
-print(fit_curve_array(calculate_quadratic_fit(two_column_text_read('practice_data')),
-      bivariate_statistics(two_column_text_read('practice_data'))))
+print(fit_curve_array(calculate_quadratic_fit(two_column_text_read('volume_energies')),
+                      bivariate_statistics(two_column_text_read('volume_energies'))))
