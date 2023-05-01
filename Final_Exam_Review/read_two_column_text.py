@@ -26,5 +26,5 @@ def read_two_column_text(file_name):
 if __name__ == "__main__":
     file = 'volume_energies'
     test_data = read_two_column_text(file)
-print(f'data={test_data}, shape={test_data.shape}')
+    print(f'data={test_data}, shape={test_data.shape}')
 

@@ -1,5 +1,5 @@
 import numpy as np
-from read_two_column_text import two_column_text_read
+from read_two_column_text import read_two_column_text
 
 
 def calculate_quadratic_fit(data_array):
@@ -9,4 +9,4 @@ def calculate_quadratic_fit(data_array):
     return quadratic_coefficients
 
 
-print(calculate_quadratic_fit(two_column_text_read('volume_energies')))
+print(calculate_quadratic_fit(read_two_column_text('volume_energies')))
