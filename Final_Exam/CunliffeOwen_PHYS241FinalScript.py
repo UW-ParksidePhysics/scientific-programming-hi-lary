@@ -38,16 +38,16 @@ if __name__ == "__main__":
     volume_list2 = [convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')]
     energy_list2 = [convert_units(two_column_data[1], 'rydberg/atom', 'eV/atom')]
 
-    plt.plot(volume_list1, energy_list1, 'black')
+    plt.plot(volume_list1, energy_list1)
     plt.plot(volume_list2, energy_list2, 'bo')
 
-    x_range = max(volume_list1) - min(volume_list1)
-    y_range = max(energy_list1) - min(energy_list1)
-    x_limits = [min(volume_list1) - (0.1 * x_range), max(volume_list1) + (0.1 * x_range)]
-    y_limits = [min(energy_list1) - (0.1 * y_range), max(energy_list1) + (0.1 * y_range)]
+    x_range = np.max(volume_list1) - np.min(volume_list1)
+    y_range = np.max(energy_list1) - np.min(energy_list1)
+    x_limits = [np.min(volume_list1) - (0.1 * x_range), np.max(volume_list1) + (0.1 * x_range)]
+    y_limits = [np.min(energy_list1) - (0.1 * y_range), np.max(energy_list1) + (0.1 * y_range)]
 
     plt.xlim(x_limits[0], x_limits[1])
     plt.ylim(y_limits[0], y_limits[1])
-   # plt.xlabel(r'$V\/(\mathrm{Å^3/atom})$')
-   # plt.ylabel(r'$E\/(\mathrm{eV/atom})$')
+    plt.xlabel(r'$V\/(\mathrm{Å^3/atom})$')
+    plt.ylabel(r'$E\/(\mathrm{eV/atom})$')
     plt.show()
