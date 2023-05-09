@@ -5,6 +5,7 @@ from calculate_lowest_eigenvectors import calculate_lowest_eigenvectors
 from fit_curve_array import fit_curve_array
 from plot_data_with_fit import plot_data_with_fit
 from annotate_plot import annotate_plot
+from equations_of_state import *
 import numpy as np
 
 if __name__ == "__main__":
@@ -13,22 +14,19 @@ if __name__ == "__main__":
 
     def parse_file_name():
         filename_split = filename.split(".")[0:3]
-        return filename_split
+        chemical_symbol = filename_split[0]
+        crystal_symbol = filename_split[1]
+        density_correlation = filename_split[2]
+        return chemical_symbol, crystal_symbol, density_correlation
 
 
+    two_column_data = (read_two_column_text(filename)) / 2
+    statistical_data = calculate_bivariate_statistics(two_column_data)
+    quad_fit_data = calculate_quadratic_fit(two_column_data)
+    fit_eos_curve, fit_eos_parameters = fit_eos(two_column_data[0], two_column_data[1],
+                                                quad_fit_data, eos='birch-murnaghan')
 
+    print(fit_eos_curve)
+    print("/n")
+    print(fit_eos_parameters)
 
-    print(read_two_column_text(filename))
-
-# def make_data_arrays():
-     #    infile = open(filename, 'r').readlines()
-     #    # 1st column is volumes_cells, 2nd column is total_energies
-     #    volumes_cells = np.array([])
-     #    total_energies = np.array([])
-     #    for line in infile:
-     #        words = line.split()
-     #        first = float(words[0][0:-4])*10**1
-     #        second = float(words[1][0:-4])*10**3
-     #        volumes_cells = np.append(volumes_cells, first)
-     #        total_energies = np.append(total_energies, second)
-     #    return [volumes_cells, total_energies]
