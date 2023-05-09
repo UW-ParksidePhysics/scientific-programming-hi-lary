@@ -1,8 +1,10 @@
-import Final_Exam_Review
-from Final_Exam_Review import read_two_column_text, calculate_bivariate_statistics, calculate_quadratic_fit
-from Final_Exam_Review import calculate_lowest_eigenvectors, fit_curve_array, plot_data_with_fit
-from Final_Exam_Review import annotate_plot
-
+from read_two_column_text import read_two_column_text
+from calculate_bivariate_statistics import calculate_bivariate_statistics
+from calculate_quadratic_fit import calculate_quadratic_fit
+from calculate_lowest_eigenvectors import calculate_lowest_eigenvectors
+from fit_curve_array import fit_curve_array
+from plot_data_with_fit import plot_data_with_fit
+from annotate_plot import annotate_plot
 import numpy as np
 
 if __name__ == "__main__":
@@ -14,7 +16,11 @@ if __name__ == "__main__":
         return filename_split
 
 
-     # def make_data_arrays():
+
+
+    print(read_two_column_text(filename))
+
+# def make_data_arrays():
      #    infile = open(filename, 'r').readlines()
      #    # 1st column is volumes_cells, 2nd column is total_energies
      #    volumes_cells = np.array([])
@@ -26,6 +32,3 @@ if __name__ == "__main__":
      #        volumes_cells = np.append(volumes_cells, first)
      #        total_energies = np.append(total_energies, second)
      #    return [volumes_cells, total_energies]
-
-    print(read_two_column_text.read_two_column_text(filename))
-
