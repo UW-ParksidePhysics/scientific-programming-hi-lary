@@ -46,7 +46,7 @@ def fit_eos(volumes, energies, quadratic_coefficients, eos='vinet', number_of_po
     # Get realistic equation of state fit
 
     initial_parameters = [quadratic_minimum, quadratic_bulk_modulus,
-                          bulk_modulus_derivative, quadratic_axis_of_symmetry]
+                                       bulk_modulus_derivative, quadratic_axis_of_symmetry]
 
     eos_parameters, eos_covariances = curve_fit(lambda_dictionary[eos.lower()], volumes, energies,
                                                 p0=initial_parameters)
@@ -129,6 +129,7 @@ def vinet(volumes, equilibrium_energy, bulk_modulus, bulk_modulus_derivative, eq
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
+
     fit_point_number = 50
     test_energies = np.array([-18, -21, -22, -21, -18.5])
 

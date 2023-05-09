@@ -1,5 +1,5 @@
-from numpy import np
 import scipy as sp
+
 
 def convert_units(data, current_value, new_value):
     # data in bohr per atom
