@@ -13,8 +13,8 @@ if __name__ == "__main__":
         filename = 'Sn.Fd-3m.GGA-PBE.volumes_energies.dat'
         filename_split = filename.split(".")[0:3]
         # infile = open(filename, 'r')
-        print(filename_split)
+        # print(filename_split)
         return filename_split
 
 
-    parse_file_name()
+    print(parse_file_name())
