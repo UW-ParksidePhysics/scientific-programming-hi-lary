@@ -9,6 +9,7 @@ from equations_of_state import *
 from convert_units import convert_units
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import datetime
 
 if __name__ == "__main__":
     filename = 'Sn.Fd-3m.GGA-PBE.volumes_energies.dat'
@@ -50,4 +51,9 @@ if __name__ == "__main__":
     plt.ylim(y_limits[0], y_limits[1])
     plt.xlabel(r'$V\/(\mathrm{Å^3/atom})$')
     plt.ylabel(r'$E\/(\mathrm{eV/atom})$')
+
+    annotate_plot({'string': f"Created by {'Hillary'} {datetime.today().isoformat()}",
+                   'position': np.array([0.05, 0.05]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
     plt.show()
+
+
