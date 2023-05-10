@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     # plotting
     plt.plot(np.array(volume_array1), np.array(energy_array1), color='black')
-    plt.plot(volume_array2, energy_list2, 'bo')
+    plt.plot(volume_array2, energy_list2, 'o', color='blue')
 
     x_range = max(volume_array1) - min(volume_array1)
     y_range = max(energy_array1) - min(energy_array1)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         crystal_symbol_plot = r"$Fd\overline{3}m$"
 
     annotate_plot({'string': f"{crystal_symbol_plot}",
-                   'position': np.array([min(volume_array1) + 0.02, max(energy_array1) - 0.06]),
+                   'position': np.array([min(volume_array1) + 0.05, max(energy_array1) - 0.13]),
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     # adding bulk modulus to top top left
@@ -86,30 +86,66 @@ if __name__ == "__main__":
     y_list = [min(energy_array1), y_limits[0]]
     vertical_line_y_max = min(energy_array1) - y_limits[0]
     plt.plot(x_list, y_list, 'k--')
-    print(volume_array1[34])
     annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa",
                    'position': np.array([volume_array1[energy_list1.index(min(energy_array1))] + 0.05,
                                          min(energy_array1) - 0.2]),
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
+    # add title
+    plt.subplots_adjust(bottom=0.25)
+    plt.title(f"{'birch-murnaghan'.capitalize()} Equation of State for "
+              f"{parse_file_name()[0]} in DFT {parse_file_name()[2]}",
+              y=1.1)
+
     if display_graph == 'True':
         plt.show()
+    elif display_graph == 'False':
+        plt.savefig(f"{'CunliffeOwen'}.{parse_file_name()[0]}.{parse_file_name()[1]}.{parse_file_name()[2]}."
+                    f"{'birch-murnaghan'.capitalize()}.EquationOfState.png")
     else:
         exit()
 
     # Visualize Vectors in Space
-    """plt.clf()
+    plt.clf()
 
+    given_eigenfunctions = (1, 2, 3)
+    print(type(given_eigenfunctions))
+    print(given_eigenfunctions[0])
     matrix = generate_matrix(min(volume_array1), max(volume_array1), number_of_dimensions=100,
                              potential_name='harmonic', potential_parameter=200)
     eigenvalues, eigenvectors = calculate_lowest_eigenvectors(matrix)
+    print(eigenvectors)
     grid = np.linspace(-10, 10, 100)
-    if (1, 2, 3)[0] in eigenvectors:
-        index = np.where(eigenvectors == (1, 2, 3)[0])[0]
+    if given_eigenfunctions[0] in eigenvectors:
+        index = np.where(eigenvectors == given_eigenfunctions[0])[0]
         eigenvectors[index] = abs(eigenvectors[index])
-    plt.plot(grid, eigenvectors[0], 'b-')
-    plt.plot(grid, eigenvectors[1], 'g-')
-    plt.plot(grid, eigenvectors[2], 'r-')
+
+    # make plots
+    plt.plot(grid, eigenvectors[0], color='blue')
+    plt.plot(grid, eigenvectors[1], color='magenta')
+    plt.plot(grid, eigenvectors[2], color='green')
     plt.axhline(0, color='black')
 
-    plt.show()"""
+    # set bounds
+    maximum_eigenvector = max([max(abs(eigenvectors[0])), max(abs(eigenvectors[1])), max(abs(eigenvectors[2]))])
+    plt.ylim(-2 * maximum_eigenvector, 2 * maximum_eigenvector)
+
+    # create plot labels
+    plt.xlabel(r"$x\/$[a.u.]")
+    plt.ylabel(r"$\psi_n (x)\/$[a.u.]")
+    plt.legend([fr"$\psi_1,\/E_1\/=\/{eigenvalues[0]:.3f}\/$a.u.", fr"$\psi_2,\/E_2\/=\/{eigenvalues[1]:.3f}\/$a.u.",
+                fr"$\psi_3,\/E_3\/=\/{eigenvalues[2]:.3f}\/$a.u."])
+
+    # adding name
+    annotate_plot({'string': f"Created by Hillary :) {date.today().isoformat()}",
+                   'position': np.array([-10, -1.2]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
+
+    plt.title(f"Select Wavefunctions for a {'harmonic'.capitalize()} Potential\n"
+              f"on a Spatial Grid of '100' Points")
+
+    if display_graph == 'True':
+        plt.show()
+    elif display_graph == 'False':
+        plt.savefig(f"CunliffeOwen.{'harmonic'.capitalize()}.{given_eigenfunctions}.png")
+    else:
+        exit()
