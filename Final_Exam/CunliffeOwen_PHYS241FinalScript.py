@@ -23,15 +23,17 @@ if __name__ == "__main__":
         return chemical_symbol, crystal_symbol, density_correlation
 
 
+    # making the data to plot
     two_column_data = (read_two_column_text(filename)) / 2
     statistical_data = calculate_bivariate_statistics(two_column_data)
     quad_fit_data = calculate_quadratic_fit(two_column_data)
 
-
+    # fitting the data
     fit_eos_curve, fit_eos_parameters = fit_eos(two_column_data[0], two_column_data[1],
                                                 quad_fit_data, eos='birch-murnaghan')
     x_fit_curve = fit_curve_array(quad_fit_data, statistical_data[2], statistical_data[3], number_of_points=50)
 
+    # putting data to plot into lists
     volume_list1 = convert_units(x_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')
     energy_list1 = convert_units(x_fit_curve[1], 'rydberg/atom', 'eV/atom')
     bulk_modulus = convert_units(fit_eos_parameters[1], 'rydberg/bohr**3', 'gigapascals')
@@ -39,6 +41,7 @@ if __name__ == "__main__":
     volume_list2 = [convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')]
     energy_list2 = [convert_units(two_column_data[1], 'rydberg/atom', 'eV/atom')]
 
+    # plotting
     plt.plot(volume_list1, energy_list1, color='black')
     plt.plot(volume_list2, energy_list2, 'bo')
 
@@ -52,8 +55,6 @@ if __name__ == "__main__":
     plt.xlabel(r'$V\/(\mathrm{Å^3/atom})$')
     plt.ylabel(r'$E\/(\mathrm{eV/atom})$')
 
-    annotate_plot({'string': f"Created by {'Hillary'} {datetime.today().isoformat()}",
-                   'position': np.array([0.05, 0.05]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
+    annotate_plot({'string': f"Created by 'Hillary' {datetime.today().isoformat()}",
+                   'position': np.array([4, 4]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
     plt.show()
-
-
