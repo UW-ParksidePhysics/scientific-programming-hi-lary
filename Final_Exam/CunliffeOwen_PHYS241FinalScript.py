@@ -38,16 +38,16 @@ if __name__ == "__main__":
     # putting data to plot into lists
     volume_array1 = convert_units(new_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')
     energy_array1 = convert_units(new_fit_curve[1], 'rydberg/atom', 'eV/atom')
-    volume_list1 = [convert_units(new_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')]
-    energy_list1 = [convert_units(new_fit_curve[1], 'rydberg/atom', 'eV/atom')]
+    volume_list1 = volume_array1.tolist()
+    energy_list1 = energy_array1.tolist()
     bulk_modulus = convert_units(fit_eos_parameters[1], 'rydberg/bohr**3', 'gigapascals')
 
-    volume_list2 = [convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')]
-    energy_list2 = [convert_units(two_column_data[1], 'rydberg/atom', 'eV/atom')]
+    volume_array2 = convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')
+    energy_list2 = convert_units(two_column_data[1], 'rydberg/atom', 'eV/atom')
 
     # plotting
     plt.plot(np.array(volume_array1), np.array(energy_array1), color='black')
-    plt.plot(volume_list2, energy_list2, 'bo')
+    plt.plot(volume_array2, energy_list2, 'bo')
 
     x_range = max(volume_array1) - min(volume_array1)
     y_range = max(energy_array1) - min(energy_array1)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         crystal_symbol_plot = r"$Fd\overline{3}m$"
 
     annotate_plot({'string': f"{crystal_symbol_plot}",
-                   'position': np.array([min(volume_array1) - 0.1, max(energy_array1) - 0.05]),
+                   'position': np.array([min(volume_array1) + 0.02, max(energy_array1) - 0.06]),
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     # adding bulk modulus to top top left
@@ -81,15 +81,15 @@ if __name__ == "__main__":
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     # adding equilibrium volume
-    #print(min(energy_list1))
-    x_list_temp = energy_array1.tolist()
-    x_list = [volume_list1[x_list_temp.index(min(energy_array1))]]
-
-   # print(x_list_temp)
+    x_list = [volume_array1[energy_list1.index(min(energy_array1))],
+              volume_array1[energy_list1.index(min(energy_array1))]]
     y_list = [min(energy_array1), y_limits[0]]
     vertical_line_y_max = min(energy_array1) - y_limits[0]
     plt.plot(x_list, y_list, 'k--')
-    annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa", 'position': np.array([0.6, 0.25]),
+    print(volume_array1[34])
+    annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa",
+                   'position': np.array([volume_array1[energy_list1.index(min(energy_array1))] + 0.05,
+                                         min(energy_array1) - 0.2]),
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     if display_graph == 'True':
