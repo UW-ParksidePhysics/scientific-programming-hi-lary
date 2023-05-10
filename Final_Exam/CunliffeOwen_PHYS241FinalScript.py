@@ -81,13 +81,16 @@ if __name__ == "__main__":
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     # adding equilibrium volume
-    """x_list = [volume_list1[energy_list1.index(min(energy_list1))],
-              volume_list1[energy_list1.index(min(energy_list1))]]
+    #print(min(energy_list1))
+    x_list_temp = energy_array1.tolist()
+    x_list = [volume_list1[x_list_temp.index(min(energy_array1))]]
+
+   # print(x_list_temp)
     y_list = [min(energy_array1), y_limits[0]]
     vertical_line_y_max = min(energy_array1) - y_limits[0]
     plt.plot(x_list, y_list, 'k--')
     annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa", 'position': np.array([0.6, 0.25]),
-                   'alignment': ['left', 'bottom'], 'fontsize': 10})"""
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     if display_graph == 'True':
         plt.show()
@@ -95,14 +98,18 @@ if __name__ == "__main__":
         exit()
 
     # Visualize Vectors in Space
+    """plt.clf()
+
     matrix = generate_matrix(min(volume_array1), max(volume_array1), number_of_dimensions=100,
                              potential_name='harmonic', potential_parameter=200)
     eigenvalues, eigenvectors = calculate_lowest_eigenvectors(matrix)
-    grid = np.linspace(-10, 10, dimension_number=100)
-    if __eigenfunctions__[0] in eigenvectors:
-        index = np.where(eigenvectors == __eigenfunctions__[0])[0]
+    grid = np.linspace(-10, 10, 100)
+    if (1, 2, 3)[0] in eigenvectors:
+        index = np.where(eigenvectors == (1, 2, 3)[0])[0]
         eigenvectors[index] = abs(eigenvectors[index])
     plt.plot(grid, eigenvectors[0], 'b-')
     plt.plot(grid, eigenvectors[1], 'g-')
     plt.plot(grid, eigenvectors[2], 'r-')
     plt.axhline(0, color='black')
+
+    plt.show()"""
