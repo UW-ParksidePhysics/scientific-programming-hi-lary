@@ -13,6 +13,7 @@ from datetime import date
 
 if __name__ == "__main__":
     filename = 'Sn.Fd-3m.GGA-PBE.volumes_energies.dat'
+    display_graph = 'True'
 
 
     def parse_file_name():
@@ -31,11 +32,11 @@ if __name__ == "__main__":
     # fitting the data
     fit_eos_curve, fit_eos_parameters = fit_eos(two_column_data[0], two_column_data[1],
                                                 quad_fit_data, eos='birch-murnaghan')
-    x_fit_curve = fit_curve_array(quad_fit_data, statistical_data[2], statistical_data[3], number_of_points=50)
+    new_fit_curve = fit_curve_array(quad_fit_data, statistical_data[2], statistical_data[3], number_of_points=50)
 
     # putting data to plot into lists
-    volume_list1 = convert_units(x_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')
-    energy_list1 = convert_units(x_fit_curve[1], 'rydberg/atom', 'eV/atom')
+    volume_list1 = convert_units(new_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')
+    energy_list1 = convert_units(new_fit_curve[1], 'rydberg/atom', 'eV/atom')
     bulk_modulus = convert_units(fit_eos_parameters[1], 'rydberg/bohr**3', 'gigapascals')
 
     volume_list2 = [convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')]
@@ -55,6 +56,39 @@ if __name__ == "__main__":
     plt.xlabel(r'$V\/(\mathrm{Å^3/atom})$')
     plt.ylabel(r'$E\/(\mathrm{eV/atom})$')
 
-    annotate_plot({'string': f"Created by 'Hillary' \n {date.today().isoformat()}",
-                   'position': np.array([np.min(volume_list1), np.min(energy_list1)]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
-    plt.show()
+    # adding name to bottom left
+    annotate_plot({'string': f"Created by Hillary :) \n {date.today().isoformat()}",
+                   'position': np.array([np.min(volume_list1) - 0.1, np.min(energy_list1) - 0.3]),
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})
+
+    # adding crystal symbol to top left
+    crystal_symbol_plot = None
+    if parse_file_name()[1] == 'Fm-3m':
+        crystal_symbol_plot = r"$Fm\overline{3}m$"
+    else:
+        crystal_symbol_plot = r"$Fd\overline{3}m$"
+
+    annotate_plot({'string': f"{crystal_symbol_plot}",
+                   'position': np.array([np.min(volume_list1) - 0.1, np.max(energy_list1) - 0.05]),
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})
+
+    # adding bulk modulus to top top left
+    annotate_plot({'string': f"$K_0 = {bulk_modulus:.1f}\/$GPa",
+                   'position': np.array([np.min(volume_list1) - 0.1, np.max(energy_list1) + 0.1]),
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})
+
+    # adding equilibrium volume
+    #print(type(energy_list1))
+    print(np.min(energy_list1))
+    x_list = [volume_list1[energy_list1.index(np.min(energy_list1))]]
+    y_list = [np.min(energy_list1), y_limits[0]]
+    vertical_line_y_max = np.min(energy_list1) - y_limits[0]
+    plt.plot(x_list, y_list, 'k--')
+    annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa", 'position': np.array([0.6, 0.25]),
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})
+
+    #print(energy_list1)
+    if display_graph == 'True':
+        plt.show()
+    else:
+        exit()
