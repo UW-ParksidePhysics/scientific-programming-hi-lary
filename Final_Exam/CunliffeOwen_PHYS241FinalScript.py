@@ -5,6 +5,7 @@ from calculate_lowest_eigenvectors import calculate_lowest_eigenvectors
 from fit_curve_array import fit_curve_array
 from plot_data_with_fit import plot_data_with_fit
 from annotate_plot import annotate_plot
+from generate_matrix import *
 from equations_of_state import *
 from convert_units import convert_units
 import matplotlib.pyplot as plt
@@ -15,7 +16,7 @@ if __name__ == "__main__":
     filename = 'Sn.Fd-3m.GGA-PBE.volumes_energies.dat'
     display_graph = 'True'
 
-
+    # Fit an Equation of State
     def parse_file_name():
         filename_split = filename.split(".")[0:3]
         chemical_symbol = filename_split[0]
@@ -80,19 +81,28 @@ if __name__ == "__main__":
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
     # adding equilibrium volume
-
-    #print(energy_list1.index(-30218.05856151028))
-    x_list = [volume_list1[energy_list1.index(min(energy_list1))],
+    """x_list = [volume_list1[energy_list1.index(min(energy_list1))],
               volume_list1[energy_list1.index(min(energy_list1))]]
     y_list = [min(energy_array1), y_limits[0]]
     vertical_line_y_max = min(energy_array1) - y_limits[0]
     plt.plot(x_list, y_list, 'k--')
     annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa", 'position': np.array([0.6, 0.25]),
-                   'alignment': ['left', 'bottom'], 'fontsize': 10})
-
-    print(x_list)
+                   'alignment': ['left', 'bottom'], 'fontsize': 10})"""
 
     if display_graph == 'True':
         plt.show()
     else:
         exit()
+
+    # Visualize Vectors in Space
+    matrix = generate_matrix(min(volume_array1), max(volume_array1), number_of_dimensions=100,
+                             potential_name='harmonic', potential_parameter=200)
+    eigenvalues, eigenvectors = calculate_lowest_eigenvectors(matrix)
+    grid = np.linspace(-10, 10, dimension_number=100)
+    if __eigenfunctions__[0] in eigenvectors:
+        index = np.where(eigenvectors == __eigenfunctions__[0])[0]
+        eigenvectors[index] = abs(eigenvectors[index])
+    plt.plot(grid, eigenvectors[0], 'b-')
+    plt.plot(grid, eigenvectors[1], 'g-')
+    plt.plot(grid, eigenvectors[2], 'r-')
+    plt.axhline(0, color='black')
