@@ -81,9 +81,9 @@ if __name__ == "__main__":
 
     # adding equilibrium volume
 
-    print(min(energy_array1))
-    x_list = [volume_array1[energy_list1.index(min(energy_list1))],
-              volume_array1[energy_list1.index(min(energy_list1))]]
+    #print(energy_list1.index(-30218.05856151028))
+    x_list = [volume_list1[energy_list1.index(min(energy_list1))],
+              volume_list1[energy_list1.index(min(energy_list1))]]
     y_list = [min(energy_array1), y_limits[0]]
     vertical_line_y_max = min(energy_array1) - y_limits[0]
     plt.plot(x_list, y_list, 'k--')
