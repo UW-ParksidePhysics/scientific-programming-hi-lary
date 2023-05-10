@@ -31,14 +31,14 @@ if __name__ == "__main__":
                                                 quad_fit_data, eos='birch-murnaghan')
     x_fit_curve = fit_curve_array(quad_fit_data, statistical_data[2], statistical_data[3], number_of_points=50)
 
-    volume_list1 = [convert_units(x_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')]
-    energy_list1 = [convert_units(x_fit_curve[1], 'rydberg/atom', 'eV/atom')]
+    volume_list1 = convert_units(x_fit_curve[0], 'bohr/atom', 'angstrom**3/atom')
+    energy_list1 = convert_units(x_fit_curve[1], 'rydberg/atom', 'eV/atom')
     bulk_modulus = convert_units(fit_eos_parameters[1], 'rydberg/bohr**3', 'gigapascals')
 
     volume_list2 = [convert_units(two_column_data[0], 'bohr/atom', 'angstrom**3/atom')]
     energy_list2 = [convert_units(two_column_data[1], 'rydberg/atom', 'eV/atom')]
 
-    plt.plot(volume_list1, energy_list1)
+    plt.plot(volume_list1, energy_list1, color='black')
     plt.plot(volume_list2, energy_list2, 'bo')
 
     x_range = np.max(volume_list1) - np.min(volume_list1)

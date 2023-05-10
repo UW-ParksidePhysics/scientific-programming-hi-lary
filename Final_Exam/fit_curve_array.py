@@ -4,7 +4,7 @@ from calculate_bivariate_statistics import calculate_bivariate_statistics
 from read_two_column_text import read_two_column_text
 
 
-def fit_curve_array(quadratic_coefficients, x_min, x_max, number_of_points=100):
+def fit_curve_array(quadratic_coefficients, x_min, x_max, number_of_points=50):
     if x_max < x_min:
         # if x_max < x_min:
         raise ArithmeticError
