@@ -90,6 +90,8 @@ if __name__ == "__main__":
     annotate_plot({'string': f"$V_0 = {fit_eos_parameters[3]:.2f}\/$GPa", 'position': np.array([0.6, 0.25]),
                    'alignment': ['left', 'bottom'], 'fontsize': 10})
 
+    print(x_list)
+
     if display_graph == 'True':
         plt.show()
     else:
