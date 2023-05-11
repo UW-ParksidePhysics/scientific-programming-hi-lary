@@ -33,6 +33,7 @@ if __name__ == "__main__":
     # fitting the data
     fit_eos_curve, fit_eos_parameters = fit_eos(two_column_data[0], two_column_data[1],
                                                 quad_fit_data, eos='birch-murnaghan')
+
     new_fit_curve = fit_curve_array(quad_fit_data, statistical_data[2], statistical_data[3], number_of_points=50)
 
     # putting data to plot into lists
@@ -109,12 +110,9 @@ if __name__ == "__main__":
     plt.clf()
 
     given_eigenfunctions = (1, 2, 3)
-    print(type(given_eigenfunctions))
-    print(given_eigenfunctions[0])
     matrix = generate_matrix(min(volume_array1), max(volume_array1), number_of_dimensions=100,
                              potential_name='harmonic', potential_parameter=200)
     eigenvalues, eigenvectors = calculate_lowest_eigenvectors(matrix)
-    print(eigenvectors)
     grid = np.linspace(-10, 10, 100)
     if given_eigenfunctions[0] in eigenvectors:
         index = np.where(eigenvectors == given_eigenfunctions[0])[0]
@@ -140,8 +138,8 @@ if __name__ == "__main__":
     annotate_plot({'string': f"Created by Hillary :) {date.today().isoformat()}",
                    'position': np.array([-10, -1.2]), 'alignment': ['left', 'bottom'], 'fontsize': 10})
 
-    plt.title(f"Select Wavefunctions for a {'harmonic'.capitalize()} Potential\n"
-              f"on a Spatial Grid of '100' Points")
+    plt.title(f"Select Wavefunctions for a Harmonic Potential\n"
+              f"on a Spatial Grid of 100 Points")
 
     if display_graph == 'True':
         plt.show()
